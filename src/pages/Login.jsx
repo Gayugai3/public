@@ -24,7 +24,7 @@ function Login() {
 
   useEffect(() => {
     (async () => {
-      if (localStorage.getItem("chat-app-user")) {
+      if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
         navigate("/");
       }
     })();
@@ -43,18 +43,18 @@ function Login() {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-        navigate("/");
+        localStorage.setItem(process.env.REACT_APP_LOCALHOST_KEY, JSON.stringify(data.user));
+        
       }
     }
   };
 
-  const handleValidation = (event) => {
+  const handleValidation = () => {
     const { password, username } = values;
     if (password === "") {
       toast.error("Email and password are required", toastOptions);
       return false;
-    } else if (username.length === "") {
+    } else if (username === "") {
       toast.error("Email and password are required", toastOptions);
       return false;
     }
@@ -126,7 +126,7 @@ const FormContainer = styled.div`
     gap: 2rem;
     background-color: #00000076;
     border-radius: 2rem;
-    padding: 3rem 5rem;
+    padding:  5rem;
     input {
       background-color: transparent;
       padding: 1rem;
